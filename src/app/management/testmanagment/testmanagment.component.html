@@ -1,0 +1,113 @@
+<body>
+<div class="col-md-12">
+    <div class="card card-plain">
+        <div class="header">
+            <h4 class="title">TPE Installer</h4>
+
+        </div>
+        <div class="content table-responsive table-full-width">
+            <table class="table table-hover">
+                <thead>
+                <button type="button" class="btn btn-primary" (click)="openEdit()">Ajouter Kit</button>
+
+                <tr>
+                    <th>ID De TPE</th>
+                    <th>Numéro de Série de TPE</th>
+                    <th>ID SIM</th>
+                    <th>IMSI</th>
+                    <th>ID Produit</th>
+                    <th>Nom Produit</th>
+                    <th>ID Magasin</th>
+                    <th>Nom Magasin</th>
+
+                </tr>
+                </thead>
+
+
+                <tbody>
+
+                <tr *ngFor="let data of combinedData">
+                    <td>{{ data.tpe.id }}</td>
+                    <td>{{ data.tpe.serialNumber }}</td>
+                    <td>{{ data.sim.id }}</td>
+                    <td>{{ data.sim.imsi }}</td>
+                    <td>{{ data.conso.id }}</td>
+                    <td>{{ data.conso.productName }}</td>
+                    <td>{{ data.store.id }}</td>
+                    <td>{{ data.store.storeName }}</td>
+                    <td class="td-actions text-right">
+                        <a (click)="Opendelete(data)" rel="tooltip" title="Remove"
+                           class="btn btn-danger btn-simple btn-xs">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="updateUserModal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayEdit}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateUserModalLabel">Ajouter Kit </h5>
+
+            </div>
+            <div class="modal-body">
+                <form #editForm="ngForm">
+                    <div>
+                        <label>sélectionner Un TPE</label>
+                        <select class="form-control" [(ngModel)]="selectedTpeId" (change)="getTpeById()">
+                            <option value="">Select TPE ID</option>
+                            <option *ngFor="let t of tpe" [value]="t.id">{{ t.id }}</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>sélectionner Une SIM</label>
+                        <select class="form-control" [(ngModel)]="selectedSIMId" (change)="getSimById()">
+                            <option value="">Select SIM ID</option>
+                            <option *ngFor="let s of sims" [value]="s.id">{{ s.id }}</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>sélectionner Un Produit</label>
+                        <select class="form-control" [(ngModel)]="selectedConsomId" (change)="getConsumablesById()">
+                            <option value="">Select Consumable ID</option>
+                            <option *ngFor="let c of consumables" [value]="c.id">{{ c.id }}</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>sélectionner Un Magasin</label>
+                        <select class="form-control" [(ngModel)]="selectedStoreId" (change)="getStoreById()">
+                            <option value="">Select Store ID</option>
+                            <option *ngFor="let st of stores" [value]="st.id">{{ st.id }}</option>
+                        </select>
+                    </div>
+                    <!--
+                                        <form #addstatusForm="ngForm" (change)="onAddTraceability(addstatusForm.value)" >
+                                        <div class="form-group">
+                                            <input  type="hidden"  class="form-control" ngModel="Installé" name="state" required>
+                                        </div>
+                                   &lt;!&ndash;     <div class="form-group">
+                                            <input type="hidden" [(ngModel)]="currentDate" name="date" class="form-control">
+                                        </div>&ndash;&gt;
+                                        <div class="form-group">
+                                            <input type="hidden" [(ngModel)]="selectedTpeId" name="tpe" class="form-control">
+                                        </div>
+                                        </form>-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" (click)="closepopup()">Fermer</button>
+                        <button type="button" class="btn btn-primary" (click)="Kit()">Ajouter Kit</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>

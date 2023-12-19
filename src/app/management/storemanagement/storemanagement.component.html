@@ -1,0 +1,159 @@
+<body>
+<div class="col-md-12">
+    <div class="card card-plain">
+        <div class="header">
+        </div>
+        <div class="content table-responsive table-full-width">
+            <table class="table table-hover">
+                <thead>
+                <button type="button" class="btn btn-primary" (click)="OpenAdd()">Ajouter Magasin</button>
+
+                <tr>
+                    <th *ngFor="let cell of tableData1.headerRow ">{{ cell }}</th>
+                </tr>
+                </thead>
+
+
+                <tbody>
+
+                <tr *ngFor="let row of tableData1.dataRows">
+                    <td>{{row[0]}}</td>
+                    <td>{{row[1]}}</td>
+                    <td>{{row[2]}}</td>
+                    <td>{{row[3]}}</td>
+
+                    <td class="td-actions text-right">
+
+                        <a (click)="OpenEdit(row)" rel="tooltip" title="Edit Profile"
+                           class="btn btn-success btn-simple btn-xs">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a (click)="Opendelete(row)" rel="tooltip" title="Remove"
+                           class="btn btn-danger btn-simple btn-xs">
+                            <i class="fa fa-times"></i>
+                        </a>
+
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+
+<!-- Add Employee Modal -->
+
+<div class="modal " id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true"
+     [ngStyle]="{'display':displayAdd}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addUserModalLabel">Ajouter Magasin</h5>
+            </div>
+            <div class="modal-body">
+                <form #addForm="ngForm" (ngSubmit)="onAddStore(addForm)">
+                    <div class="form-group">
+                        <label>Nom du Magasin</label>
+                        <input type="text" ngModel name="storeName" class="form-control" aria-describedby="emailHelp"
+                               placeholder="Nom du Magasin">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Type de Magasin</label>
+                        <input type="text" ngModel name="storeCategories" class="form-control" id="phone"
+                               placeholder="Type de Magasin">
+                    </div>
+                    <div class="form-group">
+                        <label>Adresse</label>
+                        <input type="text" ngModel name="storeAddress" class="form-control" placeholder="Adresse">
+                    </div>
+                    <div class="modal-footer">
+                        <!--            <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                        <button type="button" class="btn btn-danger" (click)="closepopup()"> Fermer</button>
+                        <button [disabled]="addForm.invalid" type="submit" id="save" class="btn btn-primary">Valider
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Edit Modal -->
+<div class="modal" id="updateUserModal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayEdit}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateUserModalLabel">Modifier Magasin </h5>
+
+            </div>
+            <div class="modal-body">
+                <form #editForm="ngForm">
+                    <div class="form-group">
+                        <label>Nom du Magasin</label>
+                        <input type="text" ngModel="{{name1}}" name="storeName" class="form-control"
+                               aria-describedby="emailHelp" placeholder="Nom du Magasin">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Type de Magasin</label>
+                        <input type="text" ngModel="{{typeStoreStr}}" name="storeCategories" class="form-control"
+                               placeholder="Type de Magasin">
+                    </div>
+                    <div class="form-group">
+                        <label>Adresse</label>
+                        <input type="text" ngModel="{{address}}" name="storeAddress" class="form-control"
+                               placeholder="Adresse">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" (click)="closepopup()">Fermer</button>
+                        <button (click)="onUpdateStore(deleteStore[0], editForm.value)" data-dismiss="modal"
+                                class="btn btn-primary">Valider
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Delete Modal -->
+<div class="modal " id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+     aria-hidden="true" [ngStyle]="{'display':displayDelete}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModelLabel">Supprimer Magasin</h5>
+
+            </div>
+            <div class="modal-body">
+                <p>Vous souhaiter vraiment supprimer se Magasin </p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="closepopup()" data-dismiss="modal"> Non
+                    </button>
+                    <!--          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>-->
+                    <button (click)="onDeleteStore(deleteStore[0])" class="btn btn-danger" data-dismiss="modal">Oui
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--</div>-->
+
+<!-- Notification for no employees -->
+<div *ngIf="stores?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+    <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">Acun Magasin !</h4>
+        <p>Pas de Magasin trouver.</p>
+    </div>
+</div>
+
+
+
+
+
+

@@ -1,0 +1,219 @@
+<body>
+<div class="col-md-12">
+    <div class="card card-plain">
+        <div class="header">
+        </div>
+        <div class="content table-responsive table-full-width">
+            <table class="table table-hover">
+                <thead>
+                <button type="button" class="btn btn-primary" (click)="OpenAdd()">Ajouter utilisateur</button>
+
+                <tr>
+                    <th *ngFor="let cell of tableData1.headerRow ">{{ cell }}</th>
+                </tr>
+                </thead>
+
+
+                <tbody>
+
+                <tr *ngFor="let row of tableData1.dataRows">
+                    <td>{{row[0]}}</td>
+                    <td>{{row[1]}}</td>
+                    <td>{{row[2]}}</td>
+                    <td>{{row[3]}}</td>
+                    <td>{{row[4]}}</td>
+                    <td>{{row[5]}}</td>
+                    <td>{{row[6]}}</td>
+
+                    <td class="td-actions text-right">
+
+                        <a (click)="OpenEdit(row)" rel="tooltip" title="Edit Profile"
+                           class="btn btn-success btn-simple btn-xs">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a (click)="Opendelete(row)" rel="tooltip" title="Remove"
+                           class="btn btn-danger btn-simple btn-xs">
+                            <i class="fa fa-times"></i>
+                        </a>
+
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+
+<!-- Add Employee Modal -->
+
+<div class="modal " id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true"
+     [ngStyle]="{'display':displayAdd}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addUserModalLabel">Ajouter Utilisateur</h5>
+            </div>
+            <div class="modal-body">
+                <form #addForm="ngForm" (ngSubmit)="onAddUser(addForm)">
+                    <div class="form-group">
+                        <label for="surname">Nom</label>
+                        <input type="text" ngModel name="surname" class="form-control" placeholder="Nom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Prénom</label>
+                        <input type="text" ngModel name="name" class="form-control" placeholder="Prénom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email </label>
+                        <input type="email" ngModel name="email" class="form-control" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Numéro de Téléphone</label>
+                        <input type="number" ngModel name="phoneNumber" class="form-control"
+                               placeholder="Numéro de Téléphone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Adresse</label>
+                        <input type="text" ngModel name="address" class="form-control" placeholder="Adrsse" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="typeUser">Type d'utilisateur </label>
+                        <select class="form-control" ngModel name="typeUserStr" required>
+                            <option value="admin">Administrateur</option>
+                            <option value="bank">Banque</option>
+                            <option value="installer">Installateur</option>
+                            <option value="storekeeper">Magasinier</option>
+                            <option value="support">Support</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="password">Mot de pass</label>
+                        <input type="password" ngModel name="password" class="form-control" placeholder="Mot de pass"
+                               required>
+                    </div>
+                    <div>
+                        <label for="confirmPassword">Confirmer le Mot de pass</label>
+                        <input type="password" ngModel name="confirmPassword" class="form-control"
+                               placeholder="Confirmer le Mot de pass" required>
+                        <!--                  <div *ngIf="passwordMismatchError" class="error">les Mots de pass sont différent</div>-->
+                    </div>
+                    <div class="modal-footer">
+                        <!--            <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                        <button type="button" class="btn btn-danger" (click)="closepopup()"> Fermer</button>
+                        <button [disabled]="addForm.invalid" type="submit" id="save" class="btn btn-primary">Valider
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Edit Modal -->
+<div class="modal" id="updateUserModal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayEdit}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateUserModalLabel">Modifier TPE </h5>
+
+            </div>
+            <div class="modal-body">
+                <form #editForm="ngForm" (ngSubmit)="onUpdateUser(deleteUser[0], editForm.value)">
+                    <div class="form-group">
+                        <label for="name">Nom</label>
+                        <input type="text" ngModel="{{name1}}" name="name" class="form-control" id="name"
+                               aria-describedby="emailHelp" placeholder="Nom">
+                    </div>
+                    <div class="form-group">
+                        <label for="surname">prénom</label>
+                        <input type="text" ngModel="{{surname}}" name="surname" class="form-control" id="surname"
+                               aria-describedby="emailHelp" placeholder="prénom">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" ngModel="{{email1}}" name="email" class="form-control" id="email"
+                               placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Numéro de Téléphone</label>
+                        <input type="number" ngModel="{{phoneNumber}}" name="phoneNumber" class="form-control"
+                               id="phone" placeholder="Numéro de Téléphone">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Adresse</label>
+                        <input type="text" ngModel="{{address}}" name="address" class="form-control" id="address"
+                               placeholder="Adresse">
+                    </div>
+                    <div class="form-group">
+                        <label for="typeUser">Type d'utilisateur :</label>
+                        <select id="typeUser" class="form-control" name="typeUserStr" ngModel="{{typeUserStr}}">
+                            <option value="admin">Administrateur</option>
+                            <option value="bank">Banque</option>
+                            <option value="installer">Installateur</option>
+                            <option value="storekeeper">Magasinier</option>
+                            <option value="support">Support</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="password">Mot de passe Actuel</label>
+                        <input type="password" id="password" [(ngModel)]="password" name="password" class="form-control"
+                               placeholder="Mot de passe" required>
+                    </div>
+                    <div>
+                        <label for="confirmPassword">Nouveau Mot de passe</label>
+                        <input type="password" id="confirmPassword" ngModel name="confirmPassword" class="form-control"
+                               placeholder="Confirmer le Mot de passe">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" (click)="closepopup()">Fermer</button>
+                        <button [disabled]="editForm.invalid " type="submit" class="btn btn-primary">Valider</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Delete Modal -->
+<div class="modal " id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+     aria-hidden="true" [ngStyle]="{'display':displayDelete}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModelLabel">Supprimer Utilisateur</h5>
+            </div>
+            <div class="modal-body">
+                <p>Vous souhaiter vraiment supprimer cet utilisateur</p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="closepopup()" data-dismiss="modal"> Non
+                    </button>
+                    <!--          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>-->
+                    <button (click)="onDeleteUser(deleteUser[0])" class="btn btn-danger" data-dismiss="modal">Oui
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--</div>-->
+
+<!-- Notification for no employees -->
+<div *ngIf="users?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+    <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">Acune TPE!</h4>
+        <p>Pas de TPE trouver.</p>
+    </div>
+</div>
+
+
+
+
+
+

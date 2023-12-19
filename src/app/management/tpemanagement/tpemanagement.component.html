@@ -1,0 +1,300 @@
+<body>
+<div class="col-md-12">
+    <div class="card card-plain">
+        <div class="header">
+        </div>
+        <div class="content table-responsive table-full-width">
+            <table class="table table-hover">
+                <thead>
+                <button type="button" class="btn btn-primary" (click)="openAdd()">Ajouter TPE</button>
+
+                <tr>
+                    <th *ngFor="let cell of tableData1.headerRow">{{ cell }}</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr *ngFor="let row of tableData1.dataRows">
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                    <td>{{ row[4] }}</td>
+                    <td>
+                        <button type="button" class="btn btn-info" (click)="openAddStatus(row)">Ajouter Status</button>
+                    </td>
+
+                    <td class="td-actions text-right">
+                        <a
+                                (click)="openEdit(row)"
+                                rel="tooltip"
+                                title="Edit Profile"
+                                class="btn btn-success btn-simple btn-xs"
+                        >
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a
+                                (click)="openAddLocation()"
+                                rel="tooltip"
+                                title="AddLocation"
+                                class="btn btn-warning btn-simple btn-xs"
+                        >
+                            <i class="pe-7s-map-marker"></i>
+                        </a>
+                        <a
+                                (click)="openTimeLine(row)"
+
+                                rel="tooltip"
+                                title="AddStatus"
+                                class="btn btn-info btn-simple btn-xs"
+                        >
+                            <i class="pe-7s-clock"></i>
+                        </a>
+                        <a
+                                (click)="openDelete(row)"
+                                rel="tooltip"
+                                title="Remove"
+                                class="btn btn-danger btn-simple btn-xs"
+                        >
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Add TPE Modal -->
+<div
+        class="modal"
+        id="addTpeModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="addTpeModalLabel"
+        aria-hidden="true"
+        [ngStyle]="{ display: displayAdd }">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addTpeModalLabel">Ajouter TPE</h5>
+            </div>
+            <div class="modal-body">
+                <form #addForm="ngForm" (ngSubmit)="onAddTpe(addForm)">
+                    <div class="form-group">
+                        <label>Numéro de Série</label>
+                        <input type="text" ngModel name="serialNumber" class="form-control"
+                               placeholder="Numéro de Série" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Modèle</label>
+                        <input type="text" ngModel name="model" class="form-control" placeholder="Modèle" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mode de paiement</label>
+                        <input type="text" ngModel name="namePayementProcessor" class="form-control"
+                               placeholder="Mode de paiement" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Opérateur</label>
+                        <input type="text" ngModel name="communicationMethod" class="form-control"
+                               placeholder="Opérateur" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" (click)="closepopup()">Fermer</button>
+                        <button [disabled]="addForm.invalid" type="submit" id="save" class="btn btn-primary">Valider
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Location Modal -->
+<div class="modal" id="addLocationModal" tabindex="-1" role="dialog" aria-labelledby="addLocationModalLabel"
+     aria-hidden="true" [ngStyle]="{ display: displayAddLocation }">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addLocationModalLabel">Ajouter Localisation</h5>
+            </div>
+            <div class="modal-body">
+                <form #addLocationForm="ngForm" (ngSubmit)="onAddLocation(addLocationForm)">
+                    <div class="form-group">
+                        <label>Latitude</label>
+                        <input type="text" ngModel name="latitude" class="form-control" placeholder="Latitude" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Longitude</label>
+                        <input type="text" ngModel name="longitude" class="form-control" placeholder="Longitude"
+                               required>
+                    </div>
+                    <!-- <div >
+                       <input *ngFor="location=deleteTpe[0]" type="hidden" ngModel name="tpe" class="form-control">
+                     </div>-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" (click)="closepopup()">Fermer</button>
+                        <button type="submit" class="btn btn-primary">Valider</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Time Line-->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: displayTimeLine }">
+    <div class="modal-dialog timeline" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Time Line</h5>
+                <div class="timeline">
+                    <div *ngFor="let tracing of traceabilityTpe" class="timeline-event">
+                        <div class="timeline-point-track-container">
+                            <div class="timeline-point"
+                                 [ngClass]="tracing?.state === 'En Stock' ? 'heighlight' :'' "></div>
+                            <div class="timeline-track"
+                                 [ngClass]="tracing?.state === 'Retour' ? 'heighlight2':'' "></div>
+                            <div class="timeline-track"
+                                 [ngClass]="tracing?.state === 'Défectueux' ? 'heighlight3':'' "></div>
+                            <div class="timeline-track"
+                                 [ngClass]="tracing?.state === 'Installé' ? 'heighlight4':'' "></div>
+                        </div>
+                        <div class="timeline-content">
+             <span>
+             {{tracing.state}}
+             </span>
+                            <span class="timeline-date">
+             {{tracing.date}}
+             </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="closepopup()">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- status Modal -->
+<div class="modal" tabindex="-1" role="dialog" aria-labelledby="addLocationModalLabel" aria-hidden="true"
+     [ngStyle]="{ display: displayAddStatus }">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ajouter Status</h5>
+            </div>
+            <div class="modal-body">
+                <form #addstatusForm="ngForm" (ngSubmit)="onAddTraceability(addstatusForm)">
+                    <div class="form-group">
+                        <label>Status </label>
+                        <select class="form-control" ngModel name="state" required>
+                            <option value="En Stock">En Stock</option>
+                            <option value="Installé">Installé</option>
+                            <option value="Retour">Retour</option>
+                            <option value="Défectueux">Défectueux</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" [(ngModel)]="currentDate" name="date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" [(ngModel)]="selectedTpeId" name="tpe" class="form-control">
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" (click)="closepopup()">Fermer</button>
+                        <button type="submit" class="btn btn-primary">Valider</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Edit TPE Modal -->
+<div
+        class="modal"
+        id="updateTpeModal"
+        tabindex="-1"
+        role="dialog"
+        [ngStyle]="{ display: displayEdit }"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateTpeModalLabel">Modifier TPE </h5>
+            </div>
+            <div class="modal-body">
+                <form #editForm="ngForm">
+                    <div class="form-group">
+                        <label>Numéro de Série</label>
+                        <input type="text" ngModel="{{serialNumber}}" name="serialNumber" class="form-control"
+                               placeholder="Numéro de Série">
+                    </div>
+                    <div class="form-group">
+                        <label>Modèle</label>
+                        <input type="text" ngModel="{{tpemodel}}" name="model" class="form-control"
+                               placeholder="Modèle">
+                    </div>
+                    <div class="form-group">
+                        <label>Mode de paiement</label>
+                        <input type="text" ngModel="{{namePayementProcessor}}" name="namePayementProcessor"
+                               class="form-control" placeholder="Mode de paiement">
+                    </div>
+                    <div class="form-group">
+                        <label>Opérateur</label>
+                        <input type="text" ngModel="{{communicationMethod}}" name="communicationMethod"
+                               class="form-control" placeholder="Opérateur">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" (click)="closepopup()">Fermer</button>
+                        <button
+                                (click)="onUpdateTpe(deleteTpe[0], editForm.value)"
+                                data-dismiss="modal"
+                                class="btn btn-primary"
+                        >
+                            Valider
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete TPE Modal -->
+<div class="modal" id="deleteTpeModal" tabindex="-1" role="dialog" [ngStyle]="{ display: displayDelete }">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteTpeModalLabel">Supprimer TPE</h5>
+            </div>
+            <div class="modal-body">
+                <p>Voulez-vous vraiment supprimer ce TPE ?</p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="closepopup()" data-dismiss="modal">Non
+                    </button>
+                    <button (click)="onDeleteTpe(deleteTpe[0])" class="btn btn-danger" data-dismiss="modal">Oui</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Notification for no TPE -->
+<div *ngIf="tpe?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+    <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">AUCUN TPE !</h4>
+        <p>Aucun TPE n'a été trouvé.</p>
+    </div>
+</div>
+</body>

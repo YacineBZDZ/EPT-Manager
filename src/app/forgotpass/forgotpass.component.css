@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900& display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: url('assets/img/creditcard.jpg') no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.login-box {
+  position: relative;
+  width: 400px;
+  height: 500px;
+  background: transparent;
+  box-shadow: 0 0 50px #0ef;
+  border-radius: 20px;
+  padding: 40px;
+  overflow: hidden;
+  backdrop-filter: blur(15px);
+}
+
+/*
+.login-box:hover {
+  animation: animate 1s linear infinite;
+}
+*/
+@keyframes animate {
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+h2 {
+  font-size: 30px;
+  color: #fff;
+}
+
+.input-group {
+  position: relative;
+  margin: 30px 0;
+  border-bottom: 2px solid #fff;
+}
+
+.input-group input {
+  width: 320px;
+  height: 40px;
+  font-size: 16px;
+  color: #fff;
+  padding: 5px;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+button {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  background: #0ef;
+  box-shadow: 0 0 10px #0ef;
+  font-size: 16px;
+  color: #000;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+}
+
+.forgot-password {
+  font-size: 14px;
+  text-align: center;
+  margin: 15px 0;
+}
+
+.forgot-password a {
+  color: #fff;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}

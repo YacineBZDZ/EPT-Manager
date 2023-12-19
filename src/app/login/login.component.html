@@ -1,0 +1,32 @@
+<body>
+<div class="login-box">
+    <div class="group">
+        <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && getAccessToken(authRequest)">
+            <h2>Login</h2>
+            <div class="input-group">
+                <input type="text" name="email" id="email" [(ngModel)]="authRequest.email" #email="ngModel" required
+                       pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" placeholder="Email">
+                <div class="form_error" *ngIf="email.errors && f.submitted">
+                    <!--   <div *ngIf="email.errors['required']">Email is required</div>
+                       <div *ngIf="email.errors['pattern']">Invalid email format</div>-->
+                </div>
+            </div>
+            <div class="input-group">
+                <input type="password" name="password" id="password" [(ngModel)]="authRequest.password"
+                       #password="ngModel" required minlength="5" placeholder="Password">
+                <div class="form_error" *ngIf="password.errors && f.submitted">
+                    <!--  <div *ngIf="password.errors['required']">Password is required</div>
+                      <div *ngIf="password.errors['minlength']">Password must be at least 5 characters</div> -->
+                </div>
+            </div>
+            <div class="group">
+                <button>Login</button>
+            </div>
+            <div class="forgot-password">
+                <a routerLink="/forgotpass">Forgot Password?</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>

@@ -1,0 +1,64 @@
+<!--
+<div class="modal fade" id="updateUserModal" tabindex="+3" role="dialog" aria-labelledby="userEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateUserModalLabel">Edit User {{editUsers?.name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onCancel()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #editForm="ngForm">
+                    <div class="form-group">
+                        <label for="name">Nom</label>
+                        <input type="text" ngModel="{{editUsers?.name}}" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Nom">
+                    </div>
+                    <div class="form-group">
+                        <label for="surname">prénom</label>
+                        <input type="text" ngModel="{{editUsers?.surname}}" name="surname" class="form-control" id="surname" aria-describedby="emailHelp" placeholder="prénom">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email </label>
+                        <input type="email" ngModel="{{editUsers?.email}}" name="email" class="form-control" id="email" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="number" ngModel="{{editUsers?.phoneNumber}}" name="phoneNumber"  class="form-control" id="phone" placeholder="Numéro de Téléphone">
+                    </div>
+                    <input type="hidden" ngModel="{{editUsers?.id}}" name="id" class="form-control" id="id" placeholder="Email">
+                    <div class="form-group">
+                        <label for="phone">Adresse</label>
+                        <input type="text" ngModel="{{editUsers?.address}}" name="address" class="form-control" id="address" placeholder="Adrsse">
+                    </div>
+                    <div class="form-group">
+                        <label for="typeUser">Type d'utilisateur :</label>
+                        <select id="typeUser"  class="form-control" name="typeUserStr" ngModel="{{editUsers?.typeUserStr}}" >
+                            <option value="Administrateur">Administrateur</option>
+                            <option value="Employee">Employé</option>
+                            <option value="Technicien">Technicien</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="password">Mot de pass</label>
+                        <input type="password" id="password" ngModel name="password" class="form-control" placeholder="Mot de pass" required>
+                    </div>
+                    <div>
+                        <label for="confirmPassword">Confirmer le Modpass</label>
+                        <input type="password" id="confirmPassword" ngModel name="confirmPassword" class="form-control" placeholder="Confirmer le Mot de pass" required>
+                        &lt;!&ndash;              <div *ngIf="passwordMismatchError" class="error">les Mots de Pass sont différent</div>&ndash;&gt;
+                    </div>
+                </form>
+            </div>
+                    <div class="modal-footer">
+                        <button type="button" id="edit-modal" class="btn btn-secondary" (click)="onCancel()">Close</button>
+                        <button type="button" id="save" class="btn btn-primary" (click)="onUpdateUser(editForm.value)">Save changes</button>
+                    </div>
+        </div>
+    </div>
+</div>
+-->
+<h2> Welcome </h2>
+<button>
+    press
+</button>

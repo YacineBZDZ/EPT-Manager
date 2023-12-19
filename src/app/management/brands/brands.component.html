@@ -1,0 +1,11 @@
+<div class="container">
+    <h1>Electronic Payment Terminals</h1>
+    <div class="brands">
+        <div *ngFor="let brand of brands" class="brand">
+            <img [src]="brand.imageUrl" [alt]="brand.text"/>
+            <p>{{ brand.text }}</p>
+        </div>
+    </div>
+</div>
+
+

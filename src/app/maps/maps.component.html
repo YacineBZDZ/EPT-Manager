@@ -1,0 +1,17 @@
+<div class="main-content">
+    <ngui-map zoom="13" center="36.7106202,3.1993118"
+              style="margin-top: 60px; height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; background-color: rgb(229, 227, 223);">
+        <marker *ngFor="let locations of location" [position]="[locations.latitude, locations.longitude]"
+                [draggable]="true">
+            <info-window>
+                <div>
+                    <h4>Marker Info</h4>
+                    <p>Latitude: {{ locations.latitude }}</p>
+                    <p>Longitude: {{ locations.longitude }}</p>
+                    <!-- Add more information about the marker as needed -->
+                </div>
+            </info-window>
+        </marker>
+    </ngui-map>
+</div>
+

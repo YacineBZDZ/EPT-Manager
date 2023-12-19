@@ -1,0 +1,18 @@
+<body>
+<div class="login-box">
+  <div class="group">
+
+    <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && getemail(emailRequest)">
+      <h2>Entrer votre email</h2>
+      <div class="input-group">
+        <input type="text" name="email" id="email" [(ngModel)]="emailRequest.email" #email="ngModel" required
+               placeholder="Email">
+        <!--  <div class="form_error" *ngIf="email.errors && f.submitted">Email is required !</div> -->
+      </div>
+      <div class="group">
+        <button>Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
